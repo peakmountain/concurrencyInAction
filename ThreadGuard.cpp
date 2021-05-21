@@ -1,5 +1,6 @@
 #include <iostream>
 #include <thread>
+#include <chrono>
 
 class ThreadGuard
 {
@@ -8,9 +9,14 @@ class ThreadGuard
         {}
         ~ThreadGuard()
         {
-            std::cout << std::this_thread::get_id() << ": waiting for the thread." << std::endl;
-            _p.join();
+            if (_p.joinable())
+            {
+                std::cout << std::this_thread::get_id() << ": waiting for the thread." << std::endl;
+                _p.join();
+            }
         }
+        ThreadGuard(ThreadGuard const&) = delete;
+        ThreadGuard& operator=(ThreadGuard const&) = delete;
     private:
         std::thread& _p;
 };
@@ -24,4 +30,7 @@ int main()
 {
     std::thread t(func);
     ThreadGuard guard(t);
+    // t.join();
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));
 }
