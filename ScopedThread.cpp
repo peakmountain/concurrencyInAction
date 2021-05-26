@@ -32,7 +32,6 @@ class ScopedThread
 
 int main()
 {
-    std::cout << "The number of cores is: " << std::thread::hardware_concurrency() << std::endl;
     std::thread t(func);
     // if (t.joinable())
     //     t.join();
