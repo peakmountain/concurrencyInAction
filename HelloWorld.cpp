@@ -3,7 +3,7 @@
 
 void func()
 {
-    std::cout << std::this_thread::get_id << ": Hello Concurrent World!" << std::endl;
+    std::cout << std::this_thread::get_id() << ": Hello Concurrent World!" << std::endl;
 }
 
 int main(void)
